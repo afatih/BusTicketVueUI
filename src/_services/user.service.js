@@ -1,11 +1,11 @@
 
-
+import {connectionService} from './connection.service'
 
 export const userService = {
     getAll,
     login,
     logout,
-    apiUrl:"https://localhost:44375/"
+    apiUrl:connectionService.apiUrl
 };
 
 function login(email,password){

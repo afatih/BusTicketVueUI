@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import {users} from './_store/users.module';
 import {alert} from './_store/alert.module';
 import {account} from './_store/account.module';
+import {tour} from './_store/tour.module';
 
 import {router} from './_helpers/router';
 
@@ -16,7 +17,8 @@ export const store = new Vuex.Store({
   modules: {
       users,
       alert,
-      account
+      account,
+      tour
   }
 });
 

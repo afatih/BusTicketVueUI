@@ -4,6 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 offset-sm-3">
+                  <div v-if="account.user"> Merhaba {{account.user.name}} </div>
                     <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
                     <router-view></router-view>
                 </div>
@@ -20,7 +21,8 @@ export default {
   name: 'app',
   computed:{
     ...mapState({
-        alert:state=>state.alert
+        alert:state=>state.alert,
+        account : state=>state.account
     })
   },
   methods:{

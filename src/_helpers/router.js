@@ -4,15 +4,19 @@ import Router from 'vue-router';
 import HomePage from '../components/HomePage.vue';
 import LoginPage from '../components/LoginPage.vue';
 import RegisterPage from '../components/RegisterPage.vue';
+import MainPage from '../components/MainPage.vue';
+import SelectTourPage from '../components/SelectTourPage.vue';
 
 Vue.use(Router);
 
 export const router = new Router({
     mode:'history',
     routes:[
-        {path:'/',component:HomePage},
+        {path:'/home',component:HomePage},
         {path:'/login',component:LoginPage},
-        {path:'/register',component:RegisterPage}
+        {path:'/register',component:RegisterPage},
+        {path:'/',component:MainPage},
+        {path:'/selectTour',component:SelectTourPage}
     ]
 })
 
