@@ -3,6 +3,9 @@ import {connectionService} from './connection.service'
 export const tourService={
     getCities,
     getTours,
+    getTourDetail,
+    addTourToUser,
+    getSelectedTours,
     apiUrl:connectionService.apiUrl
 }
 
@@ -23,6 +26,30 @@ function getTours(from,to,date){
     }
     return fetch(this.apiUrl+'/tour',requestOptions).then(handleResponse)
 }
+
+function getTourDetail(id){
+    const requestOptions={
+        method:'GET'
+    }
+    return fetch(this.apiUrl+'/tour/detail/'+id ,requestOptions).then(handleResponse)
+}
+
+function addTourToUser(tourId,userId){
+    const requestOptions={
+        method:'POST',
+        headers:{'content-Type':'application/json'},
+        body:JSON.stringify({tourId,userId})
+    }
+    return fetch(this.apiUrl+'tour/add',requestOptions).then(handleResponse)
+}
+
+function getSelectedTours(id){
+    const requestOptions={
+        method:'GET'
+    }
+    return fetch(this.apiUrl+'/tour/user/'+id ,requestOptions).then(handleResponse)
+}
+
 
 
 

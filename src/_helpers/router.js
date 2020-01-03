@@ -6,6 +6,9 @@ import LoginPage from '../components/LoginPage.vue';
 import RegisterPage from '../components/RegisterPage.vue';
 import MainPage from '../components/MainPage.vue';
 import SelectTourPage from '../components/SelectTourPage.vue';
+import TourDetail from '../components/TourDetail.vue';
+import ComplatedPage from '../components/ComplatedPage.vue';
+import UserPage from '../components/UserPage.vue';
 
 Vue.use(Router);
 
@@ -15,8 +18,11 @@ export const router = new Router({
         {path:'/home',component:HomePage},
         {path:'/login',component:LoginPage},
         {path:'/register',component:RegisterPage},
-        {path:'/',component:MainPage},
-        {path:'/selectTour',component:SelectTourPage}
+        {path:'/',component:MainPage,props:true},
+        {name:'tour', path:'/tour/:from/:to/:date',component:SelectTourPage},
+        {name:'detail', path:'/detail/:id',component:TourDetail},
+        {path:'/complated',component:ComplatedPage},
+        {name:'user', path:'/user',component:UserPage,props:true}
     ]
 })
 
