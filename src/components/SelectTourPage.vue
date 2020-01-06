@@ -17,6 +17,7 @@
                 </div>
                 <div class="col-lg-6">
                   <span>{{tour.time}}</span>
+                  
                 </div>
               </div>
             </div>
@@ -27,9 +28,11 @@
                 </div>
                 <div class="col-lg-6">
                   <span>{{tour.time}}</span>
+                 
                 </div>
               </div>
               <span>{{tour.from}}-{{tour.to}}</span>
+               <span class="d-block" v-if="tour.isAvailable" >Kalan koltuk sayısı : {{44-tour.userCount}} </span>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-4 text-center">
               <div>

@@ -1,12 +1,34 @@
 <template>
   <div>
     <navbar></navbar>
-    <div
-      class="mt-3"
-      v-if="tour.selectedTours.length==0"
-    >*Henüz herhangi bir bilet alım işlemi gerçekleştirilmemiştir.</div>
-    <h1>BİLETLERİM</h1>
+    <h2>Kullanıcı Bilgileri</h2>
+    <div class="col-12 mt-2 mb-2 pr-0 pl-0">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4 col-6">
+              <div></div>
+              <b class="d-block">İsim</b>
+              <label class="d-block">{{user.name}}</label>
+            </div>
+            <div class="col-sm-4 col-6">
+              <div></div>
+              <b class="d-block">Soyisim</b>
+              <label class="d-block">{{user.surname}}</label>
+            </div>
+            <div class="col-sm-4 col-12">
+              <div></div>
+              <b class="d-block">E-Mail</b>
+              <label class="d-block">{{user.email }}</label>
+              <!-- <label class="d-block">{{selectedTour.date | moment("MMMM Do YYYY") }} </label> Şeklinde olunca ayı ingilizce yazdı locali değişmeme rağmen -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2>Biletlerim</h2>
     <div v-for="tour in tour.userTours" :key="tour.id">
+
       <div class="card mt-3">
         <div class="card-body">
           <div class="row">
@@ -41,10 +63,6 @@
               >İptal Et</button>
             </div>
           </div>
-          <!-- <div class="col-lg-3">
-            <span>{{tour.hour}}</span>
-          </div>-->
-          <!-- {{tour.from}}-{{tour.to}}-{{tour.date}}--{{tour.price}}  -->
         </div>
       </div>
     </div>
@@ -60,19 +78,17 @@ export default {
     return {};
   },
   computed: {
-    //   ...mapState('tour','user',['selectedTours',]),
     ...mapState({
-      tour: state => state.tour
+      tour: state => state.tour,
+      user: state => state.account.user
     })
   },
-  created() {
-     
-  },
+  created() {},
   methods: {
     ...mapActions("tour", ["getUserTours", "deleteUserTour"]),
 
     cancelTour(userTourId, tourId) {
-       let userId  = this.$store.state.account.user.id;
+      let userId = this.$store.state.account.user.id;
       this.deleteUserTour({ userTourId, tourId, userId });
     }
   },
@@ -80,7 +96,7 @@ export default {
     navbar: Navbar
   },
   mounted() {
-    let userId  = this.$store.state.account.user.id;
+    let userId = this.$store.state.account.user.id;
     this.getUserTours({ userId });
   }
 };

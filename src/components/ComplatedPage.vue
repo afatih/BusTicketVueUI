@@ -13,18 +13,9 @@ export default {
 
   computed: {
       ...mapState('tour',['complatedMessage'])
-
-  },
-  created() {
-
-
-  },
-  methods: {
-  
   },
   components: {
     "navbar": Navbar
   }
- 
 };
 </script>

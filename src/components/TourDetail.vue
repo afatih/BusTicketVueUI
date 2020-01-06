@@ -68,11 +68,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <p>{{selectedTour.id}}</p>
-    <p>{{selectedTour.from}}</p>
-    <p>{{selectedTour.to}}</p>
-    <p>{{selectedTour.price}}</p> -->
   </div>
 </template>
 
