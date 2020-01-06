@@ -2,7 +2,6 @@
 import {connectionService} from './connection.service'
 
 export const userService = {
-    getAll,
     login,
     logout,
     activation,
@@ -63,12 +62,6 @@ function register(user){
     return fetch(this.apiUrl+ '/user/register',requestOptions).then(handleResponse);
 }
 
-function getAll(){
-    const requestOptions = {
-        method:'GET',
-    };
-    return fetch(this.apiUrl+'/user',requestOptions).then(handleResponse);
-}
 
 
 function handleResponse(response) {

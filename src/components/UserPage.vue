@@ -42,6 +42,7 @@
                 </div>
                 <div class="col-lg-6">
                   <span>{{tour.time}}</span>
+                  <span class="d-block">{{tour.date | moment("MM Do YYYY") }}</span>
                 </div>
               </div>
             </div>
@@ -52,6 +53,7 @@
                 </div>
                 <div class="col-lg-6">
                   <span>{{tour.time}}</span>
+                  <span class="d-block">{{tour.date | moment("MM Do YYYY") }}</span>
                 </div>
               </div>
               <span>{{tour.from}}-{{tour.to}}</span>
