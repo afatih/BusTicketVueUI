@@ -1,0 +1,5 @@
+Vue moment change time format
+https://www.npmjs.com/package/vue-moment
+
+make tr
+https://github.com/moment/moment/issues/1875

@@ -1,72 +1,101 @@
 import { tourService } from '../_services/tour.service';
 import { router } from '../_helpers/router';
+// import { handleResponse } from '../_helpers/handleResponse';
 
 const state = {
-    cities: {},
+    cities: [],
     tours: {},
     selectedTours: {},
+    userTours: {},
 
-    complatedMessage:"",
-    errorMessage:"",
-    errorType:""
+    complatedMessage: "",
+
 }
 
 
 const actions = {
-    getSelectedTours({commit},{userId}){
-        console.log('Module Id:'+userId)
-        tourService.getSelectedTours(userId)
+
+    deleteUserTour({ dispatch,commit }, { userTourId, tourId,userId }) {
+        tourService.deleteUserTour(userTourId, tourId,userId)
             .then(
-                selectedTours=>commit("allSelectedTours",selectedTours)
+                () => {
+                    dispatch('alert/success', "Silme işlemi başarılı", { root: true });
+
+                    tourService.getUserTours(userId)
+                    .then(
+                        selectedTours => commit("getAllUserTours", selectedTours)
+                    )
+                }
             )
     },
+
+
+    getUserTours({ commit }, { userId }) {
+
+        tourService.getUserTours(userId)
+            .then(
+                selectedTours => commit("getAllUserTours", selectedTours)
+            )
+    },
+
 
 
     getCities({ commit }) {
         tourService.getCities()
             .then(
                 mainCities => {
+                    // let data = handleResponse(mainCities);
                     commit('getAllCities', mainCities);
+                }
+            ).catch( () => {
+                // handleResponse(error);
+            })
+    },
+
+    addTourToUser({ commit, dispatch }, { tourId, userId }) {
+        tourService.addTourToUser(tourId, userId)
+            .then(
+                () => {
+                    commit('addUserTourComplate'),
+                        router.push('/complated')
+                },
+                err => {
+                    dispatch('alert/error', err, { root: true });
                 }
             )
     },
 
-    addTourToUser({commit},{tourId,userId}){
-        tourService.addTourToUser(tourId,userId)
-            .then(
-                commit('addUserTourComplate'),
-                router.push('/complated')
-            )
-    },
-
-    getTours({ commit }, { from, to, date }) {
+    getTours({ commit, dispatch }, { from, to, date }) {
         tourService.getTours(from, to, date)
             .then(
                 mainTours => {
                     commit('getAllTours', mainTours),
-                    commit('clearErrors'),
+                        commit('clearErrors'),
                         // router.push('/tour'+'/'+from+'/'+to+'/'+date)
                         router.push({ name: 'tour', params: { from: from, to: to, date: date } }).catch(err => {
                             console.log(err);
                         })
                 },
-                
-                error=>{
-                    commit('getAllFailure',error),
-                    console.log('Error is here')
+
+                err => {
+                    dispatch('alert/error', err, { root: true });
                 }
-                
+
             )
     },
 
-    getTourDetail({ commit }, { id }) {
+    getTourDetail({ commit,dispatch }, { id }) {
         tourService.getTourDetail(id)
             .then(
                 selectedTour => {
+
                     commit('getSelectedTour', selectedTour),
                         router.push({ name: 'detail', params: { id: id } }).catch(err => {
                             console.log(err);
                         })
+                },
+                err => {
+                    dispatch('alert/error', err, { root: true });
                 })
 
     }
@@ -76,26 +105,30 @@ const mutations = {
     getAllCities(state, mainCities) {
         state.cities = mainCities;
     },
+    asd(state) {
+        state.cities = {};
+    },
     getAllTours(state, mainTours) {
         state.tours = mainTours;
     },
-    getSelectedTour(state,selectedTour){
-        state.selectedTour=selectedTour;
+    getSelectedTour(state, selectedTour) {
+        state.selectedTours = selectedTour;
     },
-    getAllFailure(state,error){
-        state.errorMessage=error;
-        state.errorType= 'alert-danger';
+    getAllUserTours(state, selectedTours) {
+        state.userTours = selectedTours;
     },
-    clearErrors(state){
-        state.errorMessage="";
-        state.errorType= '';
+    clearErrors(state) {
+        state.errorMessage = "";
+        state.errorType = '';
     },
-    addUserTourComplate(state){
-        state.complatedMessage="Bilet alma işleminiz başarıyla tamamlandı. Satın aldığınız biletleri biletlerim sayfasına tıklayarak görüntüleyebilirsiniz. "
+    addUserTourComplate(state) {
+        state.complatedMessage = "Bilet alma işleminiz başarıyla tamamlandı. Satın aldığınız biletleri Biletlerim sayfasına tıklayarak görüntüleyebilirsiniz. "
     },
-    allSelectedTours(state,selectedTours){
-        state.selectedTours=selectedTours;
-    }
+    addUserTourError(state, err) {
+        state.errorMessage = err,
+            state.errorType = 'alert-danger'
+    },
+   
 }
 
 

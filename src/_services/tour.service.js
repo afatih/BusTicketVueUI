@@ -1,27 +1,41 @@
-import {connectionService} from './connection.service'
+import {connectionService} from './connection.service';
+import {authHeader} from '../_helpers/auth-header';
+// import {userService} from '../_services/user.service'
 
 export const tourService={
     getCities,
     getTours,
     getTourDetail,
     addTourToUser,
-    getSelectedTours,
+    deleteUserTour,
+    getUserTours,
     apiUrl:connectionService.apiUrl
 }
 
+function deleteUserTour(userTourId,tourId){
+    const requestOptions={
+        method:'DELETE',
+        headers: authHeader(),
+        body:JSON.stringify({userTourId,tourId})
+    }
+    return fetch(this.apiUrl+'/tour',requestOptions).then(handleResponse)
+}
 
 function getCities(){
     const requestOptions = {
         method:'GET',
+        headers:authHeader()  
+    
     };
-    return fetch(this.apiUrl+'/tour/cities',requestOptions).then(handleResponse);
+    return fetch(this.apiUrl+'/tour/cities',requestOptions).then(handleResponse)
 }
 
 
 function getTours(from,to,date){
+
     const requestOptions={
         method:'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeader(),
         body:JSON.stringify({from,to,date})
     }
     return fetch(this.apiUrl+'/tour',requestOptions).then(handleResponse)
@@ -29,7 +43,8 @@ function getTours(from,to,date){
 
 function getTourDetail(id){
     const requestOptions={
-        method:'GET'
+        method:'GET',
+        headers:authHeader()
     }
     return fetch(this.apiUrl+'/tour/detail/'+id ,requestOptions).then(handleResponse)
 }
@@ -37,20 +52,19 @@ function getTourDetail(id){
 function addTourToUser(tourId,userId){
     const requestOptions={
         method:'POST',
-        headers:{'content-Type':'application/json'},
+        headers: authHeader(),
         body:JSON.stringify({tourId,userId})
     }
-    return fetch(this.apiUrl+'tour/add',requestOptions).then(handleResponse)
+    return fetch(this.apiUrl+'/tour/add',requestOptions).then(handleResponse)
 }
 
-function getSelectedTours(id){
+function getUserTours(id){
     const requestOptions={
-        method:'GET'
+        method:'GET',
+        headers:authHeader()
     }
     return fetch(this.apiUrl+'/tour/user/'+id ,requestOptions).then(handleResponse)
 }
-
-
 
 
 function handleResponse(response) {
@@ -59,8 +73,8 @@ function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
-                // logout();
-                location.reload(true);
+                // userService.logout();
+                // location.reload(true);
             }
      
             // const error = (data && data.message) || response.statusText ;

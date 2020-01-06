@@ -5,8 +5,30 @@ export const userService = {
     getAll,
     login,
     logout,
+    activation,
+    register,
     apiUrl:connectionService.apiUrl
 };
+
+function activation(activationKey){
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ activationKey })
+    };
+    return fetch(this.apiUrl+'/user/activation',requestOptions)
+        .then(handleResponse)
+        .then(user=>{
+            //login successful if there's a jwt token in the response
+            if(user.token){
+                //store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('user',JSON.stringify(user))
+            }
+            return user;
+        });
+}
+
+
 
 function login(email,password){
     const requestOptions = {
@@ -31,15 +53,15 @@ function logout(){
     localStorage.removeItem('user');
 }
 
-// function register(user){
-//     const requestOptions={
-//         method:'POST',
-//         headers:{'Content-Type':'application/json'},
-//         body:JSON.stringify(user)
-//     }
+function register(user){
+    const requestOptions={
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(user)
+    }
 
-//     return fetch(this.apiUrl+ '/user/register',requestOptions).then(handleResponse);
-// }
+    return fetch(this.apiUrl+ '/user/register',requestOptions).then(handleResponse);
+}
 
 function getAll(){
     const requestOptions = {
@@ -56,7 +78,7 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 // logout();
-                location.reload(true);
+                // location.reload(true);
             }
      
             // const error = (data && data.message) || response.statusText ;

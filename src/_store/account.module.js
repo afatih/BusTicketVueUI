@@ -2,10 +2,37 @@ import {userService} from '../_services/user.service';
 import {router} from '../_helpers/router';
 
 const user = JSON.parse(localStorage.getItem('user'));
-const state = { status: { loggedIn: true }, user }
+const state = { status: { loggedIn: true }, user,registerComplated:"" };
+
    
 
 const actions ={
+    activation({commit,dispatch},{activationKey}){
+        userService.activation(activationKey)
+            .then(user=>
+                {
+                    commit('loginSuccess',user);
+  
+            },
+            error => {
+                dispatch('alert/error', error, { root: true });
+            })
+    },
+
+    register({commit,dispatch},{user}){
+        console.log('from tour module user :  '+ JSON.stringify(user))
+        userService.register(user)
+            .then( () =>{
+                commit('RegisterSuccessfull'),
+                router.push({name:'registerComplated'});
+
+            },
+            err=>{
+                dispatch('alert/error',err,{root:true});
+            })
+    },
+
+
     login({dispatch,commit},{email,password}){
         commit('loginRequest',{email});
 
@@ -44,6 +71,9 @@ const mutations = {
     logout(state) {
         state.status = {};
         state.user = null;
+    },
+    RegisterSuccessfull(state){
+        state.registerComplated="Üyelik oluşturma işleminiz başarıyla tamamlandı. Hesabınızı aktif etmek için lütfen mail hesabınızdaki linke tıklayınız.";
     }
 };
 

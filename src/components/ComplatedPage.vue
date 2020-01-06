@@ -1,12 +1,13 @@
 <template>
   <div>
+    <navbar></navbar>
       <h2 v-if="complatedMessage" >{{complatedMessage}} </h2>
-      <router-link to="/">Ana Sayfa</router-link>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Navbar from '../smallComponents/Navbar.vue'
 
 export default {
 
@@ -20,6 +21,9 @@ export default {
   },
   methods: {
   
+  },
+  components: {
+    "navbar": Navbar
   }
  
 };
