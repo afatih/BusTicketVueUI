@@ -3,7 +3,8 @@
 
 ## Project View
 
-![Project picture](https://github.com/afatih/FileUploadVirtualPath_UIWithVue/blob/master/ss/vue1.png)
+![Project picture1](https://github.com/afatih/BusTicketVueUI/blob/master/ss/ss1.png)
+![Project picture2](https://github.com/afatih/BusTicketVueUI/blob/master/ss/ss2.png)
 
 ## Project setup
 ```
