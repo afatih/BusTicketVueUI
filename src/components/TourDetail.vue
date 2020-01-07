@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar></navbar>
     <div class="row">
       <div class="col-lg-4 col-md-6 mt-5">
         <div class="card">
@@ -73,7 +72,6 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import Navbar from "../smallComponents/Navbar.vue";
 import trLocale from  'moment/locale/tr'
 
 export default {
@@ -100,10 +98,7 @@ export default {
     takeTicket(tourId) {
       this.addTourToUser({ tourId: tourId, userId: this.user.id });
     }
-  },
-  components: {
-    navbar: Navbar
-  },
+  }
   
 };
 </script>

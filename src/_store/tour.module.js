@@ -15,23 +15,23 @@ const state = {
 
 const actions = {
 
-    deleteUserTour({ dispatch,commit }, { userTourId, tourId,userId }) {
-        tourService.deleteUserTour(userTourId, tourId,userId)
+    deleteUserTour({ dispatch, commit }, { userTourId, tourId, userId }) {
+        tourService.deleteUserTour(userTourId, tourId, userId)
             .then(
                 () => {
                     dispatch('alert/success', "Silme işlemi başarılı", { root: true });
 
+                    //kullanıcının turlarını güncelleme işlemi
                     tourService.getUserTours(userId)
-                    .then(
-                        selectedTours => commit("getAllUserTours", selectedTours)
-                    )
+                        .then(
+                            selectedTours => commit("getAllUserTours", selectedTours)
+                        )
                 }
             )
     },
 
 
     getUserTours({ commit }, { userId }) {
-
         tourService.getUserTours(userId)
             .then(
                 selectedTours => commit("getAllUserTours", selectedTours)
@@ -44,11 +44,9 @@ const actions = {
         tourService.getCities()
             .then(
                 mainCities => {
-                    // let data = handleResponse(mainCities);
                     commit('getAllCities', mainCities);
                 }
-            ).catch( () => {
-                // handleResponse(error);
+            ).catch(() => {
             })
     },
 
@@ -70,7 +68,6 @@ const actions = {
             .then(
                 mainTours => {
                     commit('getAllTours', mainTours),
-                        commit('clearErrors'),
                         // router.push('/tour'+'/'+from+'/'+to+'/'+date)
                         router.push({ name: 'tour', params: { from: from, to: to, date: date } }).catch(err => {
                             console.log(err);
@@ -84,7 +81,7 @@ const actions = {
             )
     },
 
-    getTourDetail({ commit,dispatch }, { id }) {
+    getTourDetail({ commit, dispatch }, { id }) {
         tourService.getTourDetail(id)
             .then(
                 selectedTour => {
@@ -117,18 +114,10 @@ const mutations = {
     getAllUserTours(state, selectedTours) {
         state.userTours = selectedTours;
     },
-    clearErrors(state) {
-        state.errorMessage = "";
-        state.errorType = '';
-    },
     addUserTourComplate(state) {
         state.complatedMessage = "Bilet alma işleminiz başarıyla tamamlandı. Satın aldığınız biletleri Biletlerim sayfasına tıklayarak görüntüleyebilirsiniz. "
-    },
-    addUserTourError(state, err) {
-        state.errorMessage = err,
-            state.errorType = 'alert-danger'
-    },
-   
+    }
+
 }
 
 

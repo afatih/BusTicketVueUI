@@ -16,12 +16,12 @@ Vue.use(Router);
 export const router = new Router({
     mode:'history',
     routes:[
-        {path:'/login',component:LoginPage},
-        {path:'/register',component:RegisterPage},
-        {path:'/',component:MainPage,props:true},
+        {name:'login',path:'/login',component:LoginPage},
+        {name:'register',path:'/register',component:RegisterPage},
+        {name:'main',path:'/',component:MainPage,props:true},
         {name:'tour', path:'/tour/:from/:to/:date',component:SelectTourPage},
         {name:'detail', path:'/detail/:id',component:TourDetail},
-        {path:'/complated',component:ComplatedPage},
+        {name:'complated',path:'/complated',component:ComplatedPage},
         {name:'user', path:'/user',component:UserPage,props:true},
         {name:'activation', path:'/activation',component:ActivationPage},
         {name:'registerComplated', path:'/registerComplated',component:RegisterComplatedPage}

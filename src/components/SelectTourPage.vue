@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar></navbar>
     <search></search>
     <div class=" mt-3 " v-if="tours.length==0">*Seçili kriterlere uygun sefer bulunmamaktadır</div>
     <div v-for="tour in tours" :key="tour.id">
@@ -62,12 +61,10 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import Navbar from "../smallComponents/Navbar.vue";
 import Search from "../smallComponents/Search.vue";
 
 export default {
   components: {
-    navbar: Navbar,
     search: Search
   },
   data() {

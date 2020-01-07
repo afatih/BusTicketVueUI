@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar></navbar>
     <h2>Kullanıcı Bilgileri</h2>
     <div class="col-12 mt-2 mb-2 pr-0 pl-0">
       <div class="card">
@@ -73,7 +72,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import Navbar from "../smallComponents/Navbar.vue";
 
 export default {
   data() {
@@ -93,9 +91,6 @@ export default {
       let userId = this.$store.state.account.user.id;
       this.deleteUserTour({ userTourId, tourId, userId });
     }
-  },
-  components: {
-    navbar: Navbar
   },
   mounted() {
     let userId = this.$store.state.account.user.id;

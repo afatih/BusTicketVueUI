@@ -3,7 +3,10 @@
     <div class="appStyle">
       <div class="row">
         <div class="col-md-10 offset-md-1">
+          <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3" >
           <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
+          </div>
+          <navbar v-if="user" ></navbar>
           <router-view></router-view>
         </div>
       </div>
@@ -13,16 +16,15 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import Navbar from './smallComponents/Navbar';
 
 export default {
-  data() {
-    return {};
-  },
+
   name: "app",
   computed: {
     ...mapState({
       alert: state => state.alert,
-      account: state => state.account
+      user: state => state.account.user
     })
   },
   methods: {
@@ -35,6 +37,9 @@ export default {
       //clear alert on location change
       this.clearAlert();
     }
+  },
+  components:{
+    "navbar":Navbar
   }
 };
 </script>
