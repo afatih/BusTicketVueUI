@@ -1,4 +1,9 @@
-# vue-login-project
+# File Upload To Virtual Path
+[Click here to see this project's Server Side(with ASP .Net Core Web API)](https://github.com/afatih/BusTicketAPI "Server Side")
+
+## Project View
+
+![Project picture](https://github.com/afatih/FileUploadVirtualPath_UIWithVue/blob/master/ss/vue1.png)
 
 ## Project setup
 ```
