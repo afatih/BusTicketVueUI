@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" v-model="user.email" name="email" class="form-control" required />
+          <input type="email" v-model="user.email" name="email" class="form-control" required />
         </div>
         <div class="form-group">
           <label for="password">Şifre</label>
@@ -50,12 +50,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions("account", ["register"]),
+    ...mapActions("account", ["register","logout"]),
     handleSubmit() {
       let user = this.user;
       this.register({ user })
 
       }
+  },
+  created() {
+    this.logout();
   },
 };
 </script>

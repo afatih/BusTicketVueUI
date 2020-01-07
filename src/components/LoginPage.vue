@@ -5,7 +5,7 @@
       <form @submit.prevent="handleSubmit">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" v-model="email" name="email" class="form-control" required />
+          <input type="email" v-model="email" name="email" class="form-control" required />
         </div>
         <div class="form-group">
           <label for="password">Şifre</label>
